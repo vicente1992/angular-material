@@ -1,0 +1,26 @@
+<div class="p-col-10 p-justify-center p-offset-1">
+  <p-table
+    [columns]="columns"
+    [value]="post"
+    [paginator]="true"
+    [rows]="2"
+    [showCurrentPageReport]="true"
+    currentPageReportTemplate="Mostrando {first} a {last} de {totalRecords} entradas"
+    class="p-col-10 p-justify-center p-offset-1"
+  >
+    <ng-template pTemplate="header" let-columns>
+      <tr>
+        <th *ngFor="let col of columns" id="col">
+          {{ col.header }}
+        </th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-rowData let-columns="columns">
+      <tr>
+        <td *ngFor="let col of columns">
+          {{ rowData[col.field] }}
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>

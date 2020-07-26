@@ -1,0 +1,102 @@
+<mat-form-field>
+  <input
+    matInput
+    (keyup)="applyFilter($event.target.value)"
+    placeholder="Filter"
+  />
+</mat-form-field>
+<div>
+  <button
+    mat-raised-button
+    (click)="
+      exporter.exportTable('xlsx', {
+        fileName: 'reporte_covid19'
+      })
+    "
+  >
+    Excel
+  </button>
+  <button
+    mat-raised-button
+    (click)="exporter.exportTable('csv', { fileName: 'reporte_covid19' })"
+  >
+    Csv
+  </button>
+  <button
+    mat-raised-button
+    (click)="exporter.exportTable('json', { fileName: 'reporte_covid19' })"
+  >
+    Json
+  </button>
+  <button
+    mat-raised-button
+    (click)="exporter.exportTable('txt', { fileName: 'reporte_covid19' })"
+  >
+    Txt
+  </button>
+</div>
+<div></div>
+<div></div>
+<div class="mat-elevation-z8">
+  <table
+    mat-table
+    matTableExporter
+    [dataSource]="dataSource"
+    matSort
+    #exporter="matTableExporter"
+    [hiddenColumns]="[0]"
+  >
+    <!-- Position Column -->
+    <ng-container matColumnDef="country">
+      <th mat-header-cell *matHeaderCellDef id="country" mat-sort-header>
+        Country
+      </th>
+      <td mat-cell *matCellDef="let element">{{ element.country }}</td>
+    </ng-container>
+    <!-- Name Column -->
+    <ng-container matColumnDef="cases">
+      <th mat-header-cell *matHeaderCellDef id="cases" mat-sort-header>
+        Cases
+      </th>
+      <td mat-cell *matCellDef="let element">{{ element.cases }}</td>
+    </ng-container>
+
+    <!-- Weight Column -->
+    <ng-container matColumnDef="todayCases">
+      <th mat-header-cell *matHeaderCellDef id="todayCases" mat-sort-header>
+        Today Cases
+      </th>
+      <td mat-cell *matCellDef="let element">{{ element.todayCases }}</td>
+    </ng-container>
+
+    <!-- Weight Column -->
+    <ng-container matColumnDef="deaths">
+      <th mat-header-cell *matHeaderCellDef id="deaths" mat-sort-header>
+        Deaths
+      </th>
+      <td mat-cell *matCellDef="let element">{{ element.deaths }}</td>
+    </ng-container>
+
+    <!-- Weight Column -->
+    <ng-container matColumnDef="todayDeaths">
+      <th mat-header-cell *matHeaderCellDef id="todayDeaths" mat-sort-header>
+        Doday Deaths
+      </th>
+      <td mat-cell *matCellDef="let element">{{ element.todayDeaths }}</td>
+    </ng-container>
+    <ng-container matColumnDef="recovered">
+      <th mat-header-cell *matHeaderCellDef id="recovered" mat-sort-header>
+        Recovered
+      </th>
+      <td mat-cell *matCellDef="let element">{{ element.recovered }}</td>
+    </ng-container>
+    <tr mat-header-row *matHeaderRowDef="columns"></tr>
+    <tr mat-row *matRowDef="let row; columns: columns"></tr>
+  </table>
+
+  <mat-paginator
+    [pageSizeOptions]="[5, 10, 20]"
+    showFirstLastButtons
+    style="width: 100%;"
+  ></mat-paginator>
+</div>
